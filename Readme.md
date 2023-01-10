@@ -9,3 +9,5 @@ The retention.bytes configuration sets the maximum amount of data that is retain
 
 You can set these configurations when you create a new topic or modify an existing topic using the kafka-topics command-line tool. For example, to create a new topic with a retention period of 1 day and a maximum size of 1 GB, you can use the following command:
 kafka-topics.sh --create --topic my-topic --replication-factor 1 --partitions 1 --config retention.ms=86400000 --config retention.bytes=1073741824
+
+link: https://viblo.asia/p/kafka-docker-python-LzD5dodzljY
