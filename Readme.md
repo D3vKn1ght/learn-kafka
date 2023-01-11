@@ -1,4 +1,5 @@
-Su dung: pip install kafka-python<br>
+Su dung: docker compose up <br>
+pip install kafka-python<br>
 cd kafka_python <br>
 Tao topic voi config messsage : python3 management.py <br>
 Publish message : python3 producers.py <br>
