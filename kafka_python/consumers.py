@@ -9,7 +9,7 @@ if __name__ == '__main__':
     consumer = KafkaConsumer(
         'streaming',
         bootstrap_servers='localhost:9092',
-        # auto_offset_reset='earliest'
+        auto_offset_reset='earliest'
     )
     dem =0
     for message in consumer:
@@ -20,4 +20,5 @@ if __name__ == '__main__':
         # Decode the JPEG image
         image = cv2.imdecode(np.frombuffer(jpeg, dtype=np.uint8), cv2.IMREAD_COLOR)
         cv2.imwrite(f"image/{dem}.jpeg", image)
+        print("Receive image save in",f"image/{dem}.jpeg")
         dem+=1
