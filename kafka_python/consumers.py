@@ -16,9 +16,10 @@ if __name__ == '__main__':
         my_bytes_value = message.value
         my_json = my_bytes_value.decode('utf8')
         dict = eval(my_json)
+        camera_id=str(dict["camera_id"])
         jpeg = base64.b64decode(dict["frame"])
         # Decode the JPEG image
         image = cv2.imdecode(np.frombuffer(jpeg, dtype=np.uint8), cv2.IMREAD_COLOR)
-        cv2.imwrite(f"image/{dem}.jpeg", image)
-        print("Receive image save in",f"image/{dem}.jpeg")
+        cv2.imwrite(f"image/{camera_id}_{dem}.jpeg", image)
+        print("Receive image save in",f"image/{camera_id}_{dem}.jpeg")
         dem+=1
