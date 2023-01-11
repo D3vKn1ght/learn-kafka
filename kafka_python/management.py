@@ -1,6 +1,6 @@
 from kafka.admin import KafkaAdminClient, NewTopic,ConfigResource,ConfigResourceType
 topic_name="streaming"
-admin_client = KafkaAdminClient(bootstrap_servers=['localhost:9092'])
+admin_client = KafkaAdminClient(bootstrap_servers=['localhost:9094'])
 # Hien thi danh sach topic
 list_topic=admin_client.list_topics()
 print("List topic :",list_topic)
