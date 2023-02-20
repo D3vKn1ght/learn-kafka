@@ -8,7 +8,7 @@ if __name__ == '__main__':
     # Kafka Consumer 
     consumer = KafkaConsumer(
         'streaming',
-        bootstrap_servers='localhost:9094',
+        bootstrap_servers=["localhost:9093","localhost:9094"],
         auto_offset_reset='earliest'
     )
     dem =0

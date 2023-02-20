@@ -13,7 +13,7 @@ def serializer(message):
 
 # Kafka Producer
 producer = KafkaProducer(
-    bootstrap_servers=['localhost:9094'],
+    bootstrap_servers=['localhost:9093','localhost:9094'],
     value_serializer=serializer
 )
 
