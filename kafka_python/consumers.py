@@ -9,6 +9,7 @@ if __name__ == '__main__':
     consumer = KafkaConsumer(
         'streaming',
         bootstrap_servers=["localhost:9093","localhost:9094"],
+        group_id='stream-group',
         auto_offset_reset='earliest'
     )
     dem =0
@@ -23,3 +24,4 @@ if __name__ == '__main__':
         cv2.imwrite(f"image/{camera_id}_{dem}.jpeg", image)
         print("Receive image save in",f"image/{camera_id}_{dem}.jpeg")
         dem+=1
+    consumer.close()
