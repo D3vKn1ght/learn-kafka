@@ -5,7 +5,7 @@ from imutils.video import VideoStream
 import cv2
 import time 
 import base64
-
+import numpy as np
 user_ids = list(range(1, 101))
 recipient_ids = list(range(1, 101))
 
@@ -63,7 +63,11 @@ if __name__ == '__main__':
         if  not hasFrame:
             print("do not frame")
             continue
-        cv2.imwrite(f"image/{dem}.jpeg", data["frame"])
+        # write image
+        jpeg = base64.b64decode(data["frame"])       
+        # Decode the JPEG image
+        image = cv2.imdecode(np.frombuffer(jpeg, dtype=np.uint8), cv2.IMREAD_COLOR)
+        cv2.imwrite(f"image/{data['camera_id']}_{dem}.jpeg", image)
         dem+=1
         time.sleep(2)
 
