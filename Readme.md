@@ -1,27 +1,56 @@
-Su dung: docker compose up <br>
-pip install kafka-python<br>
-cd kafka_python <br>
-Tao topic voi config messsage : python3 management.py <br>
-Publish message : python3 producers.py <br>
-Subcribe message: python3 consumers.py <br>
-consumers.py se luu frame image nhan duoc trong folder image <br>
+## Cách sử dụng:
 
+1. Khởi động các services bằng lệnh:
+```
+docker compose up
+```
 
+2. Cài đặt thư viện cần thiết bằng pip:
+```
+pip install kafka-python
+```
 
-Note:
-Chinh sua topic, set tu dong xoa message sau 1 phut: kafka-topics.sh --alter --topic streaming --config retention.ms=60000 --zookeeper zookeeper:2181 <br>
+3. Di chuyển đến thư mục `kafka_python`:
+```
+cd kafka_python
+```
 
+4. Tạo topic với cấu hình cho tin nhắn:
+```
+python3 management.py
+```
 
-To set a time-to-live (TTL) for messages in Kafka or delete messages after a certain number of messages have been produced to a partition, you can use the retention.ms and retention.bytes configurations for your Kafka topic. <br>
+5. Đăng tin nhắn lên topic:
+```
+python3 producers.py
+```
 
-The retention.ms configuration sets the maximum amount of time that a message is retained in the topic before it is deleted. For example, if you set retention.ms to 86400000 (1 day), then any message that is older than 1 day will be deleted. <br>
+6. Đăng ký nhận tin nhắn từ topic:
+```
+python3 consumers.py
+```
 
-The retention.bytes configuration sets the maximum amount of data that is retained in the topic before messages are deleted. For example, if you set retention.bytes to 1073741824 (1 GB), then any messages that exceed 1 GB in total size will be deleted. <br>
+- File `consumers.py` sẽ lưu các frame hình ảnh được nhận vào thư mục `image`.
 
-You can set these configurations when you create a new topic or modify an existing topic using the kafka-topics command-line tool. For example, to create a new topic with a retention period of 1 day and a maximum size of 1 GB, you can use the following command: <br>
-kafka-topics.sh --create --topic my-topic --replication-factor 1 --partitions 1 --config retention.ms=86400000 --config retention.bytes=1073741824 <br>
+## Ghi chú quan trọng:
 
-link tham khao:  <br>
-https://github.com/better-data-science/Apache-Kafka-in-Python <br>
-https://betterdatascience.com/how-to-install-apache-kafka-using-docker-the-easy-way/ <br>
-https://betterdatascience.com/master-the-kafka-shell-in-5-minutes-topics-producers-and-consumers-explained/ <br>
+- Để chỉnh sửa topic và cài đặt tự động xóa tin nhắn sau 1 phút, sử dụng lệnh sau:
+```bash
+kafka-topics.sh --alter --topic streaming --config retention.ms=60000 --zookeeper zookeeper:2181
+```
+
+- Để đặt thời gian sống cho tin nhắn trên Kafka hoặc xóa tin nhắn sau khi một số lượng nhất định tin nhắn đã được sản xuất đến một partition, bạn có thể sử dụng cấu hình `retention.ms` và `retention.bytes` cho topic Kafka của bạn.
+
+- Cấu hình `retention.ms` xác định thời gian tối đa mà một tin nhắn được giữ lại trước khi bị xóa. Ví dụ, nếu bạn đặt `retention.ms` là `86400000` (1 ngày), bất kỳ tin nhắn nào cũ hơn 1 ngày sẽ được xóa.
+
+- Cấu hình `retention.bytes` xác định lượng dữ liệu tối đa được giữ lại trước khi tin nhắn được xóa. Ví dụ, nếu bạn đặt retention.bytes là 1073741824 (1 GB), bất kỳ tin nhắn nào vượt quá tổng cỡ 1 GB sẽ bị xóa.
+
+- Bạn có thể đặt những cấu hình này khi tạo một topic mới hoặc chỉnh sửa topic hiện có bằng công cụ dòng lệnh `kafka-topics`. Ví dụ, để tạo một topic mới với thời gian giữ tin nhắn là 1 ngày và cỡ tối đa là 1 GB, bạn có thể sử dụng lệnh sau:
+```bash
+kafka-topics.sh --create --topic my-topic --replication-factor 1 --partitions 1 --config retention.ms=86400000 --config retention.bytes=1073741824
+```
+## Liên kết tham khảo:
+https://github.com/better-data-science/Apache-Kafka-in-Python
+https://betterdatascience.com/how-to-install-apache-kafka-using-docker-the-easy-way/
+https://betterdatascience.com/master-the-kafka-shell-in-5-minutes-topics-producers-and-consumers-explained/
+https://github.com/segmentio/kafka-go
