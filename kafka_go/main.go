@@ -9,9 +9,9 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
-var list_brokers = []string{"localhost:9093", "localhost:9094"}
+var listBrokers = []string{"localhost:9093", "localhost:9094"}
 
-const Topic = "my-topic1"
+const topic = "my-topic"
 
 func produce(brokers []string, topic string, data interface{}) {
 	jsonData, err := json.Marshal(data)
@@ -27,14 +27,14 @@ func produce(brokers []string, topic string, data interface{}) {
 	defer conn.Close()
 
 	_, err = conn.WriteMessages(
-		kafka.Message{Value: []byte(jsonData)},
+		kafka.Message{Value: jsonData},
 	)
 
 	if err != nil {
 		log.Fatalf("failed to write messages: %s", err)
 	}
 
-	fmt.Printf("Produced message to topic %s: %s\n", topic, string(jsonData))
+	fmt.Printf("Produced message to topic %s: %s\n", topic, jsonData)
 }
 
 func consumer(brokers []string, topic string, yield chan<- interface{}) {
@@ -67,15 +67,13 @@ func consumer(brokers []string, topic string, yield chan<- interface{}) {
 }
 
 func main() {
-	// Produce messages to the topic
 	message := map[string]string{"message": "Hello Kafka!", "name": "Kafka Go"}
-	produce(list_brokers, Topic, message)
+	produce(listBrokers, topic, message)
 
-	// Consume messages from the topic
-	yield := make(chan interface{}) // Corrected the spelling of 'yield'
-	go consumer(list_brokers, Topic, yield)
-	for {
-		data := <-yield
+	yield := make(chan interface{})
+	go consumer(listBrokers, topic, yield)
+
+	for data := range yield {
 		fmt.Println("Received message:")
 		if msgMap, ok := data.(map[string]interface{}); ok {
 			for k, v := range msgMap {
