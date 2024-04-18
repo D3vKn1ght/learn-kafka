@@ -67,19 +67,22 @@ func consumer(brokers []string, topic string, yield chan<- interface{}) {
 }
 
 func main() {
-
 	// Produce messages to the topic
 	message := map[string]string{"message": "Hello Kafka!", "name": "Kafka Go"}
 	produce(list_brokers, Topic, message)
 
 	// Consume messages from the topic
-	yeild := make(chan interface{})
-	go consumer(list_brokers, Topic, yeild)
+	yield := make(chan interface{}) // Corrected the spelling of 'yield'
+	go consumer(list_brokers, Topic, yield)
 	for {
-		data := <-yeild
-		fmt.Println("Received message: ")
-		for k, v := range data.(map[string]interface{}) {
-			fmt.Printf("%s: %s\n", k, v)
+		data := <-yield
+		fmt.Println("Received message:")
+		if msgMap, ok := data.(map[string]interface{}); ok {
+			for k, v := range msgMap {
+				fmt.Printf("%s: %v\n", k, v)
+			}
+		} else {
+			fmt.Println("Received data is not of type map[string]interface{}")
 		}
 	}
 }
