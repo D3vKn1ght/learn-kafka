@@ -51,7 +51,7 @@ func consumer(brokers []string, topic string, yield chan<- interface{}) {
 		m, err := r.ReadMessage(context.Background())
 		if err != nil {
 			log.Printf("failed to read message: %s", err)
-			continue 
+			continue
 		}
 		fmt.Printf("message at offset %d: %s = %s\n", m.Offset, string(m.Key), string(m.Value))
 
@@ -60,7 +60,7 @@ func consumer(brokers []string, topic string, yield chan<- interface{}) {
 		if err != nil {
 			log.Printf("failed to unmarshal json: %s", err)
 			log.Printf("offending message: %s", string(m.Value))
-			continue 
+			continue
 		}
 		yield <- data
 	}
@@ -77,6 +77,9 @@ func main() {
 	go consumer(list_brokers, Topic, yeild)
 	for {
 		data := <-yeild
-		fmt.Println(data)
+		fmt.Println("Received message: ")
+		for k, v := range data.(map[string]interface{}) {
+			fmt.Printf("%s: %s\n", k, v)
+		}
 	}
 }
