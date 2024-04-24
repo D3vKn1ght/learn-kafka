@@ -51,6 +51,9 @@ kafka-topics.sh --create --topic my-topic --replication-factor 1 --partitions 1 
 ```
 ## Liên kết tham khảo:
 https://github.com/better-data-science/Apache-Kafka-in-Python
+
 https://betterdatascience.com/how-to-install-apache-kafka-using-docker-the-easy-way/
+
 https://betterdatascience.com/master-the-kafka-shell-in-5-minutes-topics-producers-and-consumers-explained/
+
 https://github.com/segmentio/kafka-go
