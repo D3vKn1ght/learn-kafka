@@ -56,7 +56,7 @@ class Stream:
 
 
 if __name__ == '__main__':
-    stream =Stream("camera01","http://camapp.click:15301/livestream/camera01/stream_0.m3u8")
+    stream =Stream("camera01","http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8")
     dem=0
     while True:
         hasFrame,data=stream.get_message()
